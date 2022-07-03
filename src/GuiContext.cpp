@@ -2,7 +2,7 @@
 
 using namespace LEG;
 
-GuiContext::GuiContext(const char *_name, int x, int y, int w, int h, bool isFullscreen) : running(false),
+GuiContext::GuiContext(const char *_name, int x, int y, int w, int h, bool isFullscreen) : running(true),
                                                                                            name(_name),
                                                                                            xPos(x),
                                                                                            yPos(y),
@@ -38,6 +38,9 @@ GuiContext::GuiContext(const char *_name, int x, int y, int w, int h, bool isFul
 
 GuiContext::~GuiContext()
 {
+    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(renderer);
+    SDL_Quit();
 }
 
 void GuiContext::pollEvents()
@@ -45,6 +48,18 @@ void GuiContext::pollEvents()
     static SDL_Event event;
     if (SDL_PollEvent(&event))
         handleEvent(&event);
+}
+
+void GuiContext::_render(SDL_Renderer* r)
+{
+    // TODO
+}
+
+void GuiContext::renderFrame()
+{
+    SDL_RenderClear(renderer);
+    _render(renderer);
+    SDL_RenderPresent(renderer);
 }
 
 void GuiContext::run()
@@ -60,5 +75,17 @@ void GuiContext::run()
             renderFrame();
             lastFrameStart = now;
         }
+    }
+}
+
+void GuiContext::handleEvent(SDL_Event* event)
+{
+    switch (event->type)
+    {
+        case SDL_QUIT:
+            running = false;
+            break;
+        default:
+            break;
     }
 }
