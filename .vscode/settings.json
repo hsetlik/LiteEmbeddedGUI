@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/hayden/Documents/dev/EmbeddedLinuxProjects/LiteEmbeddedGUI/build/debug",
+            "binaryPath": "/Users/hayden/Documents/dev/EmbeddedLinuxProjects/LiteEmbeddedGUI/build/debug/play",
+            "binaryArgs": []
+        }
+    ]
+}
